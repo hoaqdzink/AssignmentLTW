@@ -8,12 +8,7 @@ body{
 
 header{
     /* chiều dọc 100% màng hình */
-    height: 100vh;
-    background-image: url(https://image.winudf.com/v2/image1/Y29tLnNuZWFrZXJzYXJ0LmZhc2hpb25zaG9lc19zY3JlZW5fMF8xNTU2OTgwNzI0XzAyNQ/screen-0.webp?fakeurl=1&type=.webp);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-attachment: fixed;
+    height: 50px;
     position: relative;
 }
 

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" ng>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignments</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+
+    <link rel="shortcut icon" type="image/png" href="./assets/imgs/logo1.png"/>
+
+</head>
+<body>
+    <header>
+        <div class="menuTop">
+            <div class="logo">
+                <img src="./assets/imgs/logo.png" alt="logo">
+            </div>
+            <ul class="menu">
+                <li> 
+                    <a href="./index.html">Trang chủ</a> 
+                </li>
+                <li>
+                    <a href="#product">Sản phẩm</a>
+                </li>
+                <li>
+                    <a href="#contact">Liên hệ</a>
+                </li>
+                <li>
+                    <a href="./pages/login.html">Đăng Nhập</a>
+                </li>
+            </ul>
+            <div class="toggleMenu" onclick="document.querySelector('.menu').classList.toggle('active')">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </div>
+
+        <h1>SHOES BK</h1>
+    </header>
+
+    <div class="container">
+        
+    </div>
+
+    <footer>
+        <div class="content">
+            <div class="item">
+                <ul>
+                    <li>VỀ BK SHOES</li>
+                    <li>Bước tiến phát triển</li>
+                    <li>Hoạt động</li>
+                    <li>Câu chuyện về BK Shoes</li>
+                    <li>Về BK Shoes</li>
+                </ul>
+            </div>
+            <div class="item">
+                <ul>
+                    <li>THÔNG TIN</li>
+                    <li>Trang thái đơn hàng</li>
+                    <li>Hình thức giao hàng</li>
+                    <li>Chính sách đổi trả</li>
+                    <li>Hình thức thanh toán</li>
+                </ul>
+            </div>
+
+            <div class="item">
+                <ul>
+                    <li>TRỢ GIÚP</li>
+                    <li>Tuyển dụng</li>
+                    <li>Hệ thống của hàng</li>
+                    <li>Liên hệ hợp tác</li>
+                    <li>Q&A</li>
+                </ul>
+            </div>
+            <div class="item" id="contact">
+                <h3>Contact</h3>
+                <textarea rows="10" placeholder="Message"></textarea>
+                <input type="email" placeholder="Email">
+                <button>Send</button>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./js/ngShoeShop.js"></script>
+</body>
+</html>
