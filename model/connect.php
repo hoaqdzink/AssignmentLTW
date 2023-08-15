@@ -1,20 +1,18 @@
 <?phP
-    function connect(){
-        $server = 'localhost';
-        $user = 'root';
-        $pass = '';
+function connect(){
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
 
-        $database = 'shoebk';
-
-        // kết nối
-        $connect = new mysqli($server, $user, $pass, $database);
-
-        // kiểm tra kết nối
-        if ($connect) {
-            mysqli_query($connect, "SET NAMES 'utf8' ");
-            //echo 'Đã kết nối thành công';
-        } else {
-           // echo 'Kết nối thất bại';
-        }
+    try {
+        $conn = new PDO("mysql:host=$servername;dbname=shoebk", $username, $password);
+        // set the PDO error mode to exception
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        // echo "Connected successfully";
+    } catch (PDOException $e) {
+        echo "Connection failed: " . $e->getMessage();
     }
+
+    return $conn;
+}
 ?>

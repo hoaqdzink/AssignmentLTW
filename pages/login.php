@@ -1,15 +1,34 @@
 <?php
-    // quản lý tài khoản
+// quản lý tài khoản
     session_start();
     ob_start();
-    include "../mode/connect.php";
+    include "../model/connect.php";
     include "../model/user.php";
-    if((isset($_POST['submit']))&&($_POST['submit'])){
-        $user=$_POST['Username'];
-        $pass=$_POST['Password'];
+    if ((isset($_POST['submit'])) && ($_POST['submit'])) {
+        $user = $_POST['Username'];
+        $pass = $_POST['Password'];
+        $role = checkuser($user, $pass);
 
-        $role=checkuser($user, $pass);
-        $_SESSION['role']=$role;
+        $_SESSION['role'] = $role;
+
+        if ($role == 1) {
+            header('location: ../pages/admin.html');
+        } else {
+            $txt_erro = "User hoặc Pass không tồn tại";
+        }
+    }
+    if ((isset($_POST['submit'])) && ($_POST['submit'])) {
+        $user = $_POST['Username'];
+        $pass = $_POST['Password'];
+        $role = checkuser($user, $pass);
+
+        $_SESSION['role'] = $role;
+
+        if ($role == 2) {
+            header('location: ../index.html');
+        } else {
+            $txt_erro = "User hoặc Pass không tồn tại";
+        }
     }
 ?>
 
@@ -23,7 +42,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="keywords"
         content="Glassy Login Form Responsive Widget,Login form widgets, Sign up Web forms , Login signup Responsive web form,Flat Pricing table,Flat Drop downs,Registration Forms,News letter Forms,Elements" />
-    <script type="application/x-javascript"> 
+    <script type="application/x-javascript">
         addEventListener("load", function(){
             setTimeout(hideURLbar, 0); 
         }, false);
@@ -33,7 +52,8 @@
     </script>
     <!-- Meta tag Keywords -->
     <!-- css files -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"> <!-- Font-Awesome-Icons-CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <!-- Font-Awesome-Icons-CSS -->
     <link rel="stylesheet" href="../css/login.css" type="text/css" media="all" /> <!-- Style-CSS -->
     <!-- //css files -->
     <!-- web-fonts -->
@@ -41,7 +61,7 @@
     <link href="//fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700" rel="stylesheet">
     <!-- //web-fonts -->
 
-    <link rel="shortcut icon" type="image/png" href="../assets/imgs/logo1.png"/>
+    <link rel="shortcut icon" type="image/png" href="../assets/imgs/logo1.png" />
 </head>
 
 <body>
@@ -58,7 +78,12 @@
         <!--form-stars-here-->
         <div class="wthree-form">
             <h2>Login</h2>
-            <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
+            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                <?php
+                if (isset($txt_erro) && ($txt_erro != "")) {
+                    echo "<font color='red'>" . $txt_erro . "</font>";
+                }
+                ?>
                 <div class="form-sub-w3">
                     <input type="text" name="Username" placeholder="Username " required="" />
                     <div class="icon-w3">
@@ -78,7 +103,7 @@
                 </label>
                 <div class="clear"></div>
                 <div class="submit-agileits">
-                    <input type="submit" value="Login">
+                    <input type="submit" name="submit" value="Login">
                 </div>
             </form>
 
