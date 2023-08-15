@@ -1,3 +1,18 @@
+<?php
+    // quản lý tài khoản
+    session_start();
+    ob_start();
+    include "../mode/connect.php";
+    include "../model/user.php";
+    if((isset($_POST['submit']))&&($_POST['submit'])){
+        $user=$_POST['Username'];
+        $pass=$_POST['Password'];
+
+        $role=checkuser($user, $pass);
+        $_SESSION['role']=$role;
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,7 +58,7 @@
         <!--form-stars-here-->
         <div class="wthree-form">
             <h2>Login</h2>
-            <form action="#" method="post">
+            <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
                 <div class="form-sub-w3">
                     <input type="text" name="Username" placeholder="Username " required="" />
                     <div class="icon-w3">
