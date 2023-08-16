@@ -1,9 +1,20 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>ATPro Admin</title>
+<?php
+	
+	session_start();
+    ob_start();
 
-	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+	include "../model/connect.php";
+	include "../model/sanpham.php";
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Shoe BK</title>
+
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="shortcut icon" type="image/png" href="../assets/imgs/logo1.png"/>
 
 	<!-- Import lib -->
@@ -13,6 +24,7 @@
 	<!-- End import lib -->
 
 	<link rel="stylesheet" type="text/css" href="../css/admin.css">
+	<link rel="stylesheet" href="../css/update.css">
 </head>
 <body class="overlay-scrollbar">
 	<!-- navbar -->
@@ -235,9 +247,9 @@
 			<li class="nav-item avt-wrapper">
 				<div class="avt dropdown">
 					<img src="../assets/imgs/hinh-avata-chibi-de-thuong-cute-10.jpg" alt="User image" class="dropdown-toggle" data-toggle="user-menu">
-					<ul id="user-menu" class="dropdown-menu">
+					<ul id="user-menu" class="dropdown-menu" >
 						<li  class="dropdown-menu-item">
-							<a class="dropdown-menu-link">
+							<a class="dropdown-menu-link" >
 								<div>
 									<i class="fas fa-user-tie"></i>
 								</div>
@@ -245,7 +257,7 @@
 							</a>
 						</li>
 						<li class="dropdown-menu-item">
-							<a href="#" class="dropdown-menu-link">
+							<a href="#" class="dropdown-menu-link" >
 								<div>
 									<i class="fas fa-cog"></i>
 								</div>
@@ -253,7 +265,7 @@
 							</a>
 						</li>
 						<li  class="dropdown-menu-item">
-							<a href="#" class="dropdown-menu-link">
+							<a href="#" class="dropdown-menu-link" >
 								<div>
 									<i class="far fa-credit-card"></i>
 								</div>
@@ -261,7 +273,7 @@
 							</a>
 						</li>
 						<li  class="dropdown-menu-item">
-							<a href="#" class="dropdown-menu-link">
+							<a href="#" class="dropdown-menu-link" >
 								<div>
 									<i class="fas fa-spinner"></i>
 								</div>
@@ -269,7 +281,7 @@
 							</a>
 						</li>
 						<li  class="dropdown-menu-item">
-							<a href="#" class="dropdown-menu-link">
+							<a href="#" class="dropdown-menu-link" >
 								<div>
 									<i class="fas fa-sign-out-alt"></i>
 								</div>
@@ -287,49 +299,49 @@
 	<div class="sidebar">
 		<ul class="sidebar-nav">
 			<li class="sidebar-nav-item">
-				<a href="#" class="sidebar-nav-link">
+				<a href="../admin/admin.php?act=infor" class="sidebar-nav-link"  onclick="setActiveLink(event)">
 					<div>
 						<i class="fas fa-user"></i>
 					</div>
 					<span>
-						Information
+						THÔNG TIN
 					</span>
 				</a>
 			</li>
 			<li class="sidebar-nav-item">
-				<a href="#" class="sidebar-nav-link active">
+				<a href="../admin/admin.php?act=listProduct" class="sidebar-nav-link" onclick="setActiveLink(event)">
 					<div>
 						<i class="fas fa-th"></i>
 					</div>
-					<span>List Products</span>
+					<span>DANH SÁCH SẢN PHẨM</span>
 				</a>
 			</li>
 			<li  class="sidebar-nav-item">
-				<a href="#" class="sidebar-nav-link">
+				<a href="../admin/admin.php?act=addProduct" class="sidebar-nav-link" onclick="setActiveLink(event)">
 					<div>
-						<i class="fas fa-cart-plus"></i>
+						<i class="fas fa-cart-plus" ></i>
 					</div>
-					<span>Add Products</span>
+					<span>THÊM SẢN PHẨM</span>
 				</a>
 			</li>
 			<li  class="sidebar-nav-item">
-				<a href="#" class="sidebar-nav-link">
+				<a href="../admin/admin.php?act=updateProduct" class="sidebar-nav-link" onclick="setActiveLink(event)">
 					<div>
 						<i class="fas fa-pen-square"></i>
 					</div>
-					<span>Update Products</span>
+					<span>CẬP NHẬT SẢN PHẨM</span>
 				</a>
 			</li>
 			<li  class="sidebar-nav-item">
-				<a href="#" class="sidebar-nav-link">
+				<a href="../admin/admin.php?act=addCTV" class="sidebar-nav-link" onclick="setActiveLink(event)">
 					<div>
 						<i class="fas fa-user-plus"></i>
 					</div>
-					<span>Add Collaborators</span>
+					<span>THÊM CTV</span>
 				</a>
 			</li>
 			<li  class="sidebar-nav-item">
-				<a href="#" class="sidebar-nav-link">
+				<a href="../admin/admin.php?act=signout" class="sidebar-nav-link" onclick="setActiveLink(event)">
 					<div>
 						<i class="fas fa-sign-out-alt"></i>
 					</div>
@@ -341,7 +353,45 @@
 	<!-- end sidebar -->
 	<!-- main content -->
 	<div class="wrapper">
-		
+		<?php 
+		if(isset($_GET['act'])){
+			switch($_GET['act']){
+				case 'infor':
+					include "../view/infor.php";
+					break;
+				case 'listProduct':
+					$kq = getAll_sp();
+					include "../view/listProduct.php";
+					break; 
+				case 'addProduct':
+					include "../view/addProduct.php";
+					break;
+				case 'delsp':
+					if(isset($_GET['id'])){
+						$id=$_GET['id'];
+						deleteSP($id);
+					}
+					$kq=getAll_sp();
+					include "../view/listProduct.php";
+					break;
+				case 'updateProduct':
+					include "../view/updateProduct.php";
+					break;
+				case 'addCTV':
+					include "../view/addCTV.php";
+					break;
+				case 'signout':
+					// ...
+					break;
+				default:
+					header('location: ../admin/admin.php');
+					break;
+			}
+		}
+		// else{
+		// 	header('location: ../admin/admin.php?act=infor');
+		// }
+		?>
 	</div>
 	<!-- end main content -->
 	<!-- import script -->

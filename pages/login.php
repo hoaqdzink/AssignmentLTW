@@ -12,7 +12,7 @@
         $_SESSION['role'] = $role;
 
         if ($role == 1) {
-            header('location: ../pages/admin.html');
+            header('location: ../admin/admin.php');
         } else {
             $txt_erro = "User hoặc Pass không tồn tại";
         }
