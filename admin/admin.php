@@ -1,10 +1,10 @@
 <?php
-	
-	session_start();
-    ob_start();
+		session_start();
+		ob_start();
 
-	include "../model/connect.php";
-	include "../model/sanpham.php";
+		include "../model/connect.php";
+		include "../model/sanpham.php";
+		include "../model/user.php";
 ?>
 
 <!DOCTYPE html>
@@ -37,8 +37,11 @@
 				</a>
 			</li>
 			<li class="nav-item">
-				<img src="../assets/imgs/logo1.png" alt="Shoe BK" class="logo logo-light">
-				<img src="../assets/imgs/logo1.png" alt="Shoe BK" class="logo logo-dark">
+				<a href="../pages/product.php">
+					<img src="../assets/imgs/logo1.png" alt="Shoe BK" class="logo logo-light">
+					<img src="../assets/imgs/logo1.png" alt="Shoe BK" class="logo logo-dark">
+				</a>
+				
 			</li>
 		</ul>
 		<!-- end nav left -->
@@ -313,7 +316,7 @@
 					<div>
 						<i class="fas fa-th"></i>
 					</div>
-					<span>DANH SÁCH SẢN PHẨM</span>
+					<span>DS SẢN PHẨM</span>
 				</a>
 			</li>
 			<li  class="sidebar-nav-item">
@@ -321,7 +324,7 @@
 					<div>
 						<i class="fas fa-cart-plus" ></i>
 					</div>
-					<span>THÊM SẢN PHẨM</span>
+					<span>THÊM SP</span>
 				</a>
 			</li>
 			<li  class="sidebar-nav-item">
@@ -329,7 +332,7 @@
 					<div>
 						<i class="fas fa-pen-square"></i>
 					</div>
-					<span>CẬP NHẬT SẢN PHẨM</span>
+					<span>CẬP NHẬT SP</span>
 				</a>
 			</li>
 			<li  class="sidebar-nav-item">
@@ -366,6 +369,18 @@
 				case 'addProduct':
 					include "../view/addProduct.php";
 					break;
+				case 'addsp':
+					if(isset($_POST['themmoi']) && ($_POST['themmoi'])){
+						$tensp = $_POST['tensp'];
+						$gia = $_POST['gia'];
+						$soluong = $_POST['soluong'];
+						$hinh = $_POST['hinh'];
+						addsp($tensp, $gia,$soluong,$hinh);
+					}
+
+					$kq = getAll_sp();
+					include "../view/listProduct.php";
+					break;
 				case 'delsp':
 					if(isset($_GET['id'])){
 						$id=$_GET['id'];
@@ -374,14 +389,48 @@
 					$kq=getAll_sp();
 					include "../view/listProduct.php";
 					break;
-				case 'updateProduct':
-					include "../view/updateProduct.php";
+				case 'editsp':
+					if(isset($_GET['id'])){
+						$id=$_GET['id'];
+						$kqonesp = getOnesp($id);
+
+						$kq = getAll_sp();
+
+						include "../view/updateProduct.php";
+
+					}
+					if(isset($_POST['id'])){
+						$id=$_POST['id'];
+						$tensp=$_POST['tensp'];
+						$gia = $_POST['gia'];
+						$soluong = $_POST['soluong'];
+						$hinh = $_POST['hinh'];
+						updatesp($id,$tensp,$gia,$soluong,$hinh);
+
+						$kq=getAll_sp();
+						include "../view/listProduct.php";
+					}
+					
 					break;
 				case 'addCTV':
 					include "../view/addCTV.php";
 					break;
+				case 'themctv':
+					if ((isset($_POST['themctv'])) && ($_POST['themctv'])) {
+						$user = $_POST['user'];
+						$pass = $_POST['pass'];
+						$name = $_POST['name'];
+						$phone = $_POST['phone'];
+						$email = $_POST['email'];
+						$role = $_POST['role'];
+						addUser($user,$pass,$name,$phone,$email,$role);
+						
+						include "../view/addCTV.php";
+					}
+					break;
 				case 'signout':
-					// ...
+					unset($_SESSION['role']);
+					header('location: ../pages/login.php');
 					break;
 				default:
 					header('location: ../admin/admin.php');

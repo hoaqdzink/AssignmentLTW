@@ -12,4 +12,10 @@
             return 0;
         }
     }
+
+    function addUser($user,$pass,$name,$phone,$email,$role){
+        $conn = connect();
+        $sql = "INSERT INTO users (user,pass,name,phone,email,role) VALUES ('".$user."','".$pass."', '".$name."','".$phone."', '".$email."','".$role."')";
+        $conn -> exec($sql);
+    }
 ?>

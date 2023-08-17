@@ -4,31 +4,16 @@
     ob_start();
     include "../model/connect.php";
     include "../model/user.php";
-    if ((isset($_POST['submit'])) && ($_POST['submit'])) {
-        $user = $_POST['Username'];
-        $pass = $_POST['Password'];
-        $role = checkuser($user, $pass);
+    if ((isset($_POST['themUser'])) && ($_POST['themUser'])) {
+        $user = $_POST['user'];
+        $pass = $_POST['pass'];
+        $name = $_POST['name'];
+        $phone = $_POST['phone'];
+        $email = $_POST['email'];
+        $role = $_POST['role'];
+        addUser($user,$pass,$name,$phone,$email,$role);
 
-        $_SESSION['role'] = $role;
-
-        if ($role == 1) {
-            header('location: ../admin/admin.php');
-        } else {
-            $txt_erro = "User hoặc Pass không tồn tại";
-        }
-    }
-    if ((isset($_POST['submit'])) && ($_POST['submit'])) {
-        $user = $_POST['Username'];
-        $pass = $_POST['Password'];
-        $role = checkuser($user, $pass);
-
-        $_SESSION['role'] = $role;
-
-        if ($role == 2) {
-            header('location: ../index.html');
-        } else {
-            $txt_erro = "User hoặc Pass không tồn tại";
-        }
+        header('location: ../pages/login.php');
     }
 ?>
 
@@ -77,31 +62,45 @@
     <div class="main-w3layouts-agileinfo">
         <!--form-stars-here-->
         <div class="wthree-form">
-            <h2>ĐĂNG Nhập</h2>
+            <h2>ĐĂNG KÝ</h2>
             <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-                <?php
-                if (isset($txt_erro) && ($txt_erro != "")) {
-                    echo "<font color='red'>" . $txt_erro . "</font>";
-                }
-                ?>
                 <div class="form-sub-w3">
-                    <input type="text" name="Username" placeholder="Username " required="" />
+                    <input type="text" name="user" placeholder="Username " required="" />
                     <div class="icon-w3">
-                        <i class="fa fa-user" aria-hidden="true"></i>
+                        
                     </div>
                 </div>
                 <div class="form-sub-w3">
-                    <input type="password" name="Password" placeholder="Password" required="" />
+                    <input type="password" name="pass" placeholder="Password" required="" />
                     <div class="icon-w3">
-                        <i class="fa fa-unlock-alt" aria-hidden="true"></i>
+                        
+                    </div>
+                </div>
+                <div class="form-sub-w3">
+                    <input type="text" name="name" placeholder="Fullname" required="" />
+                    <div class="icon-w3">
+                        
+                    </div>
+                </div>
+                <div class="form-sub-w3">
+                    <input type="text" name="phone" placeholder="Số điện thoại" required="" />
+                    <div class="icon-w3">
+                        
+                    </div>
+                </div>
+                <div class="form-sub-w3">
+                    <input type="text" name="email" placeholder="Email" required="" />
+                    <input type="hidden" name="role" placeholder="role" required="" value="2"/>
+                    <div class="icon-w3">
+                        
                     </div>
                 </div>
                 <label class="anim">
-                    <a href="../pages/REGISTER.php">ĐĂNG KÝ</a>
+                    <a href="../pages/login.php">ĐĂNG NHẬP</a>
                 </label>
                 <div class="clear"></div>
                 <div class="submit-agileits">
-                    <input type="submit" name="submit" value="Login">
+                    <input type="submit" name="themUser" value="Đăng KÍ">
                 </div>
             </form>
 

@@ -12,7 +12,7 @@ function getAll_sp(){
 
 function getOnesp($id){
     $conn = connect();
-    $stmt = $conn->prepare("SELECT * FROM sanpham WHERE id".$id);
+    $stmt = $conn->prepare("SELECT * FROM sanpham WHERE id=".$id);
     $stmt->execute();
     $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
     $kq=$stmt->fetchAll();
@@ -24,12 +24,18 @@ function deleteSP($id){
     $sql = "DELETE FROM sanpham WHERE id=".$id;
     $conn -> exec($sql); 
 }
+//Thêm sản phẩm
+function addsp($tensp, $gia, $soluong, $hinh){
+    $conn = connect();
+    $sql = "INSERT INTO sanpham (tensp, gia,soluong, hinh) VALUES('".$tensp."','".$gia."', '".$soluong."', '".$hinh."')";
+    $conn -> exec($sql);
+}
 
 //Cập nhật sản phẩm
 
 function updatesp($id,$tensp,$gia,$soluong,$hinh){
     $conn = connect();
-    $sql="UPDATE sanpham SET tensp='".$tensp."', gia='".$gia."',soluong='".$soluong."', hinh='".$hinh."' WHERE id".$id;
+    $sql="UPDATE sanpham SET tensp='".$tensp."', gia='".$gia."',soluong='".$soluong."', hinh='".$hinh."' WHERE id=".$id;
     $stmt = $conn->prepare($sql);
     $stmt->execute();
 }

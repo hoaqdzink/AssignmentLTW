@@ -26,9 +26,10 @@
                 <td>'.$sp['soluong'].'</td>
                 <td><img src='.$sp['hinh'].' alt=""></td>
                 <td>
-                    <a href="">Sửa</a> |
+                    <a href="admin.php?act=editsp&id='.$sp['id'].'">Sửa</a> |
                     <a href="admin.php?act=delsp&id='.$sp['id'].'">Xóa</a>
                 </td>
+                </td></td>
               </tr>';
         }
       }
